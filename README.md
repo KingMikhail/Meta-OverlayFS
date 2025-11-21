@@ -1,6 +1,6 @@
 # meta-overlayfs
 
-Official overlayfs mount handler for KernelSU metamodules.
+A reference implementation of the overlayfs mount handler for KernelSU metamodules. This is not intended to be a state-of-the-art implementation, but rather a starting point for developers to understand and build upon.
 
 ## Installation
 
