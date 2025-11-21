@@ -1,0 +1,37 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  build:
+    uses: ./.github/workflows/meta-overlay.yml
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v5
+        with:
+          name: meta-overlayfs
+
+      - name: Get version from tag
+        id: version
+        run: echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+
+      - name: Rename artifact
+        run: |
+          mv meta-overlayfs-*.zip meta-overlayfs-${{ steps.version.outputs.VERSION }}.zip
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: meta-overlayfs-${{ steps.version.outputs.VERSION }}.zip
+          body_path: meta-overlayfs-changelog.md
+          generate_release_notes: true

@@ -6,7 +6,6 @@ VERSION=$(grep '^version' Cargo.toml | head -1 | sed 's/.*"\(.*\)".*/\1/')
 OUTPUT_DIR="target"
 METAMODULE_DIR="metamodule"
 MODULE_PROP_FILE="$METAMODULE_DIR/module.prop"
-UPDATE_JSON_FILE="$METAMODULE_DIR/update.json"
 MODULE_OUTPUT_DIR="$OUTPUT_DIR/module"
 
 MODULE_VERSION=$(grep -m1 '^version=' "$MODULE_PROP_FILE" | cut -d'=' -f2- | tr -d '\r')
@@ -90,26 +89,6 @@ cd "$MODULE_OUTPUT_DIR"
 ZIP_NAME="meta-overlayfs-v${MODULE_VERSION}.zip"
 zip -r "../$ZIP_NAME" .
 cd ../..
-
-echo ""
-echo "Generating update.json..."
-if ! LATEST_TAG=$(git describe --tags --abbrev=0 2>/dev/null); then
-    echo "Error: Unable to determine the latest git tag."
-    exit 1
-fi
-
-ZIP_URL="https://github.com/tiann/KernelSU/releases/download/${LATEST_TAG}/${ZIP_NAME}"
-CHANGELOG_URL="https://github.com/tiann/KernelSU/releases/download/${LATEST_TAG}/meta-overlayfs-changelog.md"
-
-cat > "$UPDATE_JSON_FILE" <<EOF
-{
-    "version": "${MODULE_VERSION}",
-    "versionCode": ${MODULE_VERSION_CODE},
-    "zipUrl": "${ZIP_URL}",
-    "changelog": "${CHANGELOG_URL}"
-}
-EOF
-echo "Generated $UPDATE_JSON_FILE"
 
 echo ""
 echo "=========================================="
