@@ -13,7 +13,6 @@ jobs:
     defaults:
       run:
         shell: bash
-        working-directory: userspace/meta-overlayfs
 
     steps:
       - name: Checkout
@@ -30,7 +29,7 @@ jobs:
       - name: Cache Cargo
         uses: Swatinem/rust-cache@v2
         with:
-          workspaces: userspace/meta-overlayfs
+          workspaces: .
           cache-targets: false
 
       - name: Install cross
@@ -45,6 +44,6 @@ jobs:
         with:
           name: meta-overlayfs
           path: |
-            userspace/meta-overlayfs/target/meta-overlayfs-*.zip
-            userspace/meta-overlayfs/metamodule/meta-overlayfs-changelog.md
+            target/meta-overlayfs-*.zip
+            metamodule/meta-overlayfs-changelog.md
           if-no-files-found: error
