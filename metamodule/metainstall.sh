@@ -49,7 +49,11 @@ copy_selinux_contexts() {
         return 0
     fi
 
-    chcon --reference="$SRC" "$DST" 2>/dev/null || true
+    CHCON_FLAG=""
+    if [ -L "$SRC" ]; then
+        CHCON_FLAG="-h"
+    fi
+    chcon $CHCON_FLAG --reference="$SRC" "$DST" 2>/dev/null || true
 
     find "$SRC" -print | while IFS= read -r PATH_SRC; do
         if [ "$PATH_SRC" = "$SRC" ]; then
@@ -58,7 +62,11 @@ copy_selinux_contexts() {
         REL_PATH="${PATH_SRC#"${SRC}/"}"
         PATH_DST="$DST/$REL_PATH"
         if [ -e "$PATH_DST" ] || [ -L "$PATH_DST" ]; then
-            chcon --reference="$PATH_SRC" "$PATH_DST" 2>/dev/null || true
+            CHCON_FLAG=""
+            if [ -L "$PATH_SRC" ]; then
+                CHCON_FLAG="-h"
+            fi
+            chcon $CHCON_FLAG --reference="$PATH_SRC" "$PATH_DST" 2>/dev/null || true
         fi
     done
 }
