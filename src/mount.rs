@@ -1,4 +1,4 @@
-// Overlayfs mounting implementation
+// OverlayFS Mounting Implementation
 // Migrated from ksud/src/mount.rs and ksud/src/init_event.rs
 
 use anyhow::{Context, Result, bail};
@@ -330,6 +330,6 @@ pub fn mount_modules_systemlessly(metadata_dir: &str, content_dir: &str) -> Resu
         }
     }
 
-    info!("All partitions processed");
+    info!("All Partitions Processed");
     Ok(())
 }
