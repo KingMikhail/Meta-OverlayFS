@@ -2,7 +2,7 @@
 
 // Dual-directory support for ext4 image
 pub const MODULE_METADATA_DIR: &str = "/data/adb/modules/";
-pub const MODULE_CONTENT_DIR: &str = "/data/adb/metamodule/mnt/";
+pub const MODULE_CONTENT_DIR: &str = "/data/adb/Meta-Module/Mount/";
 
 // Legacy constant (for backwards compatibility)
 pub const _MODULE_DIR: &str = "/data/adb/modules/";
