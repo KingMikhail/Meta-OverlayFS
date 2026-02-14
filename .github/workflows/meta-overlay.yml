@@ -86,4 +86,4 @@ jobs:
 
       - uses: actions/attest-build-provenance@v3
         with:
-          subject-path: 'meta-overlayfs-${{ steps.version.outputs.VERSION }}.zip'
+          subject-path: 'Meta-OverlayFS-${{ steps.version.outputs.VERSION }}.zip'
