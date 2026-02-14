@@ -16,7 +16,7 @@ fn main() -> Result<()> {
         .filter_level(log::LevelFilter::Info)
         .init();
 
-    info!("meta-overlayfs v{}", env!("CARGO_PKG_VERSION"));
+    info!("Meta-OverlayFS v{}", env!("CARGO_PKG_VERSION"));
 
     // Dual-directory support: metadata + content
     let metadata_dir = std::env::var("MODULE_METADATA_DIR")
@@ -30,6 +30,6 @@ fn main() -> Result<()> {
     // Execute dual-directory mounting
     mount::mount_modules_systemlessly(&metadata_dir, &content_dir)?;
 
-    info!("Mount completed successfully");
+    info!("Mount Completed Successfully");
     Ok(())
 }
